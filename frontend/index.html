@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Card Generator</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .box {
+      background: white;
+      width: 400px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 8px 0;
+    }
+
+    button {
+      padding: 10px 15px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .cards {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .card {
+      background: white;
+      width: 200px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px #aaa;
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1> Student Card Generator</h1>
+
+<div class="box">
+
+  <input type="text" id="name" placeholder="Enter Name" />
+  <input type="text" id="course" placeholder="Enter Course" />
+  <input type="file" id="image" />
+
+  <button onclick="createCard()">Create Card</button>
+
+</div>
+
+<h2>Cards</h2>
+<div class="cards" id="cards"></div>
+
+<script>
+const API = "http://localhost:5000";
+
+//  Create Card
+async function createCard() {
+  const name = document.getElementById("name").value;
+  const course = document.getElementById("course").value;
+  const image = document.getElementById("image").files[0];
+
+  if (!name || !course || !image) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("name", name);
+  formData.append("course", course);
+  formData.append("image", image);
+
+  const res = await fetch(`${API}/upload`, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  loadCards();
+}
+
+//  Load Cards
+async function loadCards() {
+  const res = await fetch(`${API}/cards`);
+  const data = await res.json();
+
+  const container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  data.forEach(card => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${API}/uploads/${card.image}" />
+        <h3>${card.name}</h3>
+        <p>${card.course}</p>
+      </div>
+    `;
+  });
+}
+
+loadCards();
+</script>
+
+</body>
+</html>
