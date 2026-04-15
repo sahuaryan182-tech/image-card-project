@@ -62,8 +62,7 @@ image-card-project/
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/image-card-project.git
-
+git clone https://github.com/sahuaryan182-tech/image-card-project.git
 cd image-card-project
 
 
