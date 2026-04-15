@@ -177,4 +177,3 @@ Aryan Sahu
 This project is licensed under the MIT License.
 
 
->>>>>>> 8a18c7c (Resolved README conflict)
