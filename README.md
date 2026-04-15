@@ -1,6 +1,5 @@
-<<<<<<< HEAD
-# image-card-project
-=======
+
+
 # Image Card Generator with Filename Preprocessing
 
 ## Overview
