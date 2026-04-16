@@ -2,10 +2,17 @@
 # backend/data/
 # node_modules/
 
+# Ignore node modules (dependencies)
 node_modules/
 
+# Ignore all uploaded images/files (user uploads)
 backend/uploads/*
+
+# Keep uploads folder in Git (do not ignore this file)
 !backend/uploads/.gitkeep
 
+# Ignore all data files (JSON storage)
 backend/data/*
+
+# Keep data folder in Git (do not ignore this file)
 !backend/data/.gitkeep
